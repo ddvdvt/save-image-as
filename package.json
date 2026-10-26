@@ -1,0 +1,19 @@
+{
+  "name": "save-image-as",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Сохранить картинку как PNG, JPG или WebP из контекстного меню",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test \"test/**/*.test.js\"",
+    "test:e2e": "node e2e/smoke.mjs",
+    "icons": "node scripts/make-icons.mjs",
+    "locales": "node scripts/locales.src.mjs",
+    "zip": "node scripts/pack.mjs",
+    "store:images": "node scripts/store-images.mjs"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.64.1"
+  }
+}

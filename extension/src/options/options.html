@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Сохранить картинку как… — настройки</title>
+  <link rel="stylesheet" href="../shared/ui.css">
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="head">
+      <img src="../../icons/icon48.png" alt="" width="40" height="40">
+      <div>
+        <h1 data-i18n="optionsTitle">Сохранить картинку как… — настройки</h1>
+        <p class="muted" data-i18n="optionsLead">Щёлкните правой кнопкой по любой картинке → «Сохранить картинку как…» → PNG, JPG или WebP.</p>
+      </div>
+    </header>
+
+    <section class="card" aria-labelledby="hFormat">
+      <h2 id="hFormat" data-i18n="sectionFormat">Формат</h2>
+      <fieldset>
+        <legend data-i18n="defaultFormat">Формат по умолчанию (первый пункт меню)</legend>
+        <div class="formats" id="formats">
+          <label class="pill"><input type="radio" name="defaultFormat" value="png"> <span>PNG</span></label>
+          <label class="pill"><input type="radio" name="defaultFormat" value="jpg"> <span>JPG</span></label>
+          <label class="pill"><input type="radio" name="defaultFormat" value="webp"> <span>WebP</span></label>
+          <label class="pill hidden" id="avifPill"><input type="radio" name="defaultFormat" value="avif"> <span>AVIF</span></label>
+        </div>
+        <small class="muted" data-i18n="formatsHint">PNG — без потерь и с прозрачностью. JPG — открывается везде. WebP — компактный, с прозрачностью.</small>
+      </fieldset>
+      <div class="row">
+        <label for="quality" class="lbl"><span data-i18n="quality">Качество JPG и WebP</span> <output id="qualityOut" for="quality">92</output></label>
+        <input type="range" id="quality" min="50" max="100" step="1">
+      </div>
+      <div class="row inline">
+        <label for="background" class="lbl" data-i18n="background">Фон вместо прозрачности (для JPG)</label>
+        <input type="color" id="background">
+        <button type="button" id="bgWhite" class="btn small" data-i18n="white">Белый</button>
+      </div>
+      <fieldset>
+        <legend data-i18n="svgScale">Векторные картинки (SVG)</legend>
+        <label class="choice"><input type="radio" name="svgScale" value="2"> <span data-i18n="svgScale2">В 2 раза крупнее — чётко на экранах высокой чёткости</span></label>
+        <label class="choice"><input type="radio" name="svgScale" value="1"> <span data-i18n="svgScale1">В натуральную величину</span></label>
+      </fieldset>
+    </section>
+
+    <section class="card" aria-labelledby="hSave">
+      <h2 id="hSave" data-i18n="sectionSave">Сохранение</h2>
+      <label class="choice"><input type="checkbox" id="askWhere"> <span data-i18n="askWhere">Спрашивать, куда сохранить файл</span></label>
+      <label class="choice"><input type="checkbox" id="toastOnSave"> <span data-i18n="toastOnSave">Показывать уведомление на странице после сохранения</span></label>
+      <div class="row">
+        <label for="pattern" class="lbl" data-i18n="pattern">Имя файла</label>
+        <input id="pattern" spellcheck="false" autocomplete="off" aria-describedby="patternHelp patternPreview">
+        <div class="tokens" id="tokens" role="group" data-i18n-title="insertToken"></div>
+        <small id="patternHelp" class="muted" data-i18n="patternHelp">Нажмите на метку, чтобы вставить её. «/» создаёт папку внутри «Загрузок», например {site}/{name}.</small>
+        <div class="preview"><span class="muted" data-i18n="example">Пример:</span> <code id="patternPreview"></code></div>
+        <small id="patternError" class="err" role="alert"></small>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="hAccess">
+      <h2 id="hAccess" data-i18n="sectionAccess">Доступ к сайтам</h2>
+      <p class="muted" data-i18n="accessLead">Обычно картинка читается прямо со страницы, на которой вы щёлкнули, — без доступа к сайтам. Если она лежит на другом сервере (CDN), расширение один раз спросит разрешение для этого сервера.</p>
+      <div class="all-row">
+        <span id="allStatus"></span>
+        <button type="button" id="allToggle" class="btn small"></button>
+      </div>
+      <ul id="hosts" class="hosts"></ul>
+      <p id="hostsEmpty" class="muted hidden" data-i18n="hostsEmpty">Разрешений для отдельных сайтов пока нет.</p>
+    </section>
+
+    <section class="card" aria-labelledby="hAbout">
+      <h2 id="hAbout" data-i18n="sectionAbout">О расширении</h2>
+      <p data-i18n="aboutText">Конвертация идёт прямо в браузере: картинки никуда не отправляются. Анимированные GIF и WebP сохраняются первым кадром — оригинал можно сохранить пунктом «Сохранить оригинал».</p>
+      <p class="muted" data-i18n="privacyShort">Нет аналитики, рекламы и аккаунтов. Открытый код, лицензия MIT.</p>
+      <div class="actions">
+        <button type="button" id="reset" class="btn" data-i18n="reset">Сбросить настройки</button>
+        <span id="toast" class="toast" role="status"></span>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <a href="#" data-brand-link="other" target="_blank" rel="noopener" data-i18n="otherExtensions">Другие расширения автора</a>
+      <a href="#" data-brand-link="privacy" target="_blank" rel="noopener" data-i18n="privacyLink">Политика конфиденциальности</a>
+      <span class="muted">MIT</span>
+    </footer>
+  </div>
+  <script type="module" src="options.js"></script>
+</body>
+</html>

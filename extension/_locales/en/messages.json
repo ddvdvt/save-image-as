@@ -1,0 +1,239 @@
+{
+  "extName": {
+    "message": "Save Picture As… — PNG, JPG, WebP"
+  },
+  "extShortName": {
+    "message": "PNG/JPG/WebP"
+  },
+  "extDescription": {
+    "message": "Right-click any image: save it as PNG, JPG or WebP, or copy it as PNG. Converted locally in your browser, no servers."
+  },
+  "actionTitle": {
+    "message": "Save Picture As… — settings"
+  },
+  "menuParent": {
+    "message": "Save picture as…"
+  },
+  "menuSaveAs": {
+    "message": "Save as $1"
+  },
+  "menuCopyPng": {
+    "message": "Copy as PNG"
+  },
+  "menuOriginal": {
+    "message": "Save the original (no conversion)"
+  },
+  "close": {
+    "message": "Close"
+  },
+  "actionOriginal": {
+    "message": "Save original"
+  },
+  "copied": {
+    "message": "Image copied as PNG ($1)"
+  },
+  "saved": {
+    "message": "Saved: $1"
+  },
+  "noteFirstFrame": {
+    "message": "This image is animated — only the first frame was saved. To keep the animation, click \"Save original\"."
+  },
+  "noteSvgReduced": {
+    "message": "The SVG is very large — it was saved at a reduced size so the browser can handle it."
+  },
+  "errHttp": {
+    "message": "Could not load the image: the server returned error $1."
+  },
+  "errNetwork": {
+    "message": "Could not load the image: the server is unreachable or refuses to serve it."
+  },
+  "errNotImage": {
+    "message": "This address does not return an image (maybe a placeholder page or a server error)."
+  },
+  "errTooLarge": {
+    "message": "The image is too large to convert in the browser. You can save it as is."
+  },
+  "errDecode": {
+    "message": "The browser could not decode this image. You can save it as is."
+  },
+  "errEncode": {
+    "message": "This browser cannot encode the selected format. Choose PNG or JPG."
+  },
+  "errBlob": {
+    "message": "The image is no longer available: the page has released it. Reload the page and try again."
+  },
+  "errUnreachable": {
+    "message": "This image cannot be read on this page."
+  },
+  "errCopy": {
+    "message": "Copy failed: the browser denied clipboard access. Try again or save the file instead."
+  },
+  "errCopyInsecure": {
+    "message": "Copying images works only on secure (https) pages. Save the file instead."
+  },
+  "permTitle": {
+    "message": "Access to the image host is needed"
+  },
+  "permLead": {
+    "message": "To save this image, the extension needs to download it from:"
+  },
+  "permWhy": {
+    "message": "The image is hosted on another server and the page does not allow reading it directly. The extension will download it from this address itself, just like the browser does when it opens the image, and convert it on your computer."
+  },
+  "permPrivacy": {
+    "message": "The access is used only to download images you pick in the menu. You can revoke it in the extension settings at any time."
+  },
+  "permAllowHost": {
+    "message": "Allow for this site"
+  },
+  "permAllowAll": {
+    "message": "Allow for all sites"
+  },
+  "permDenied": {
+    "message": "Access was not granted. You can open the image in a new tab and save it from there."
+  },
+  "permGranted": {
+    "message": "Done, saving the image…"
+  },
+  "permExpired": {
+    "message": "This request has expired. Right-click the image again."
+  },
+  "cancel": {
+    "message": "Cancel"
+  },
+  "optionsTitle": {
+    "message": "Save Picture As… — settings"
+  },
+  "optionsLead": {
+    "message": "Right-click any image → \"Save picture as…\" → PNG, JPG or WebP."
+  },
+  "sectionFormat": {
+    "message": "Format"
+  },
+  "defaultFormat": {
+    "message": "Default format (first menu item)"
+  },
+  "formatsHint": {
+    "message": "PNG: lossless, keeps transparency. JPG: opens everywhere. WebP: compact, keeps transparency."
+  },
+  "quality": {
+    "message": "JPG and WebP quality"
+  },
+  "background": {
+    "message": "Background for transparent areas (JPG)"
+  },
+  "white": {
+    "message": "White"
+  },
+  "svgScale": {
+    "message": "Vector images (SVG)"
+  },
+  "svgScale2": {
+    "message": "2× larger: sharp on high-resolution screens"
+  },
+  "svgScale1": {
+    "message": "Natural size"
+  },
+  "sectionSave": {
+    "message": "Saving"
+  },
+  "askWhere": {
+    "message": "Ask where to save each file"
+  },
+  "toastOnSave": {
+    "message": "Show a notice on the page after saving"
+  },
+  "pattern": {
+    "message": "File name"
+  },
+  "insertToken": {
+    "message": "Insert a tag"
+  },
+  "patternHelp": {
+    "message": "Click a tag to insert it. \"/\" creates a folder inside Downloads, e.g. {site}/{name}."
+  },
+  "example": {
+    "message": "Example:"
+  },
+  "patternEmpty": {
+    "message": "The file name cannot be empty."
+  },
+  "patternUnknown": {
+    "message": "Unknown tag $1."
+  },
+  "token_name": {
+    "message": "name from the image address or its alt text"
+  },
+  "token_alt": {
+    "message": "image alt text"
+  },
+  "token_title": {
+    "message": "page title"
+  },
+  "token_site": {
+    "message": "site"
+  },
+  "token_date": {
+    "message": "date (YYYY-MM-DD)"
+  },
+  "token_time": {
+    "message": "time (HH-MM-SS)"
+  },
+  "token_width": {
+    "message": "width in pixels"
+  },
+  "token_height": {
+    "message": "height in pixels"
+  },
+  "token_format": {
+    "message": "format (PNG, JPG…)"
+  },
+  "sectionAccess": {
+    "message": "Site access"
+  },
+  "accessLead": {
+    "message": "Usually the image is read right from the page you clicked on, with no site access. If it is hosted on another server (a CDN), the extension asks once for access to that server."
+  },
+  "allSitesOn": {
+    "message": "Access to all sites: allowed"
+  },
+  "allSitesOff": {
+    "message": "Access to all sites: no (ask per server)"
+  },
+  "grantAll": {
+    "message": "Allow for all"
+  },
+  "revokeAll": {
+    "message": "Revoke"
+  },
+  "revoke": {
+    "message": "Remove"
+  },
+  "hostsEmpty": {
+    "message": "No per-site permissions yet."
+  },
+  "sectionAbout": {
+    "message": "About"
+  },
+  "aboutText": {
+    "message": "Conversion happens right in the browser: images are never uploaded anywhere. Animated GIF and WebP are saved as the first frame; use \"Save the original\" to keep the animation."
+  },
+  "privacyShort": {
+    "message": "No analytics, ads or accounts. Open source, MIT license."
+  },
+  "reset": {
+    "message": "Reset settings"
+  },
+  "resetDone": {
+    "message": "Settings reset"
+  },
+  "savedSettings": {
+    "message": "Saved"
+  },
+  "otherExtensions": {
+    "message": "The author's other extensions"
+  },
+  "privacyLink": {
+    "message": "Privacy policy"
+  }
+}
