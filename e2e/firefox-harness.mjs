@@ -58,6 +58,7 @@ self.addEventListener('unhandledrejection', (e) => self.__e2eErrors.push('unhand
  *   proxyPort?: number,
  *   prefs?: Record<string, any>,
  *   headless?: boolean,
+ *   helperPath?: string,
  * }} o
  */
 export async function startFirefox(o) {
@@ -92,6 +93,8 @@ export async function startFirefox(o) {
     'datareporting.policy.dataSubmissionEnabled': false,
     'browser.aboutwelcome.enabled': false,
     'extensions.getAddons.cache.enabled': false,
+    // pages see a light system theme unless a test switches it (setColorScheme)
+    'layout.css.prefers-color-scheme.content-override': 1,
     ...(o.proxyPort
       ? {
           'network.proxy.type': 1,
@@ -229,6 +232,44 @@ export async function startFirefox(o) {
     return null;
   }
 
+  /**
+   * Evaluate an expression in the browser chrome (privileged) context, e.g. to change prefs at run
+   * time. Needs -remote-allow-system-access (set above). Used instead of CDP-only emulation calls.
+   * @param {string} expression
+   */
+  async function chromeEval(expression) {
+    const conn = /** @type {any} */ (browser).connection;
+    const tree = await conn.send('browsingContext.getTree', { 'moz:scope': 'chrome', maxDepth: 0 });
+    const ctx = tree.result.contexts[0].context;
+    const r = await conn.send('script.evaluate', { expression, target: { context: ctx }, awaitPromise: true });
+    if (r.result.type === 'exception') throw new Error(`chromeEval: ${JSON.stringify(r.result.exceptionDetails).slice(0, 300)}`);
+    return r.result.result?.value;
+  }
+
+  /** Set a Firefox pref while running. @param {string} name @param {boolean | number | string} value */
+  async function setPref(name, value) {
+    const fn = typeof value === 'boolean' ? 'setBoolPref' : typeof value === 'number' ? 'setIntPref' : 'setStringPref';
+    await chromeEval(`Services.prefs.${fn}(${JSON.stringify(name)}, ${JSON.stringify(value)}); true`);
+  }
+
+  /**
+   * prefers-color-scheme seen by pages (like Playwright's emulateMedia({ colorScheme })), through the
+   * content pref. It applies to documents loaded afterwards: reload an open page to see the change.
+   * @param {'light' | 'dark'} scheme
+   */
+  async function setColorScheme(scheme) {
+    await setPref('layout.css.prefers-color-scheme.content-override', scheme === 'dark' ? 0 : 1);
+    await sleep(100);
+  }
+
+  /** CSS media type of every tab, 'print' or 'screen' (Playwright's emulateMedia({ media })). @param {'print' | 'screen'} medium */
+  async function setMedium(medium) {
+    await chromeEval(
+      `for (const w of Services.wm.getEnumerator('navigator:browser')) for (const b of w.gBrowser.browsers) b.browsingContext.mediumOverride = ${JSON.stringify(medium === 'print' ? 'print' : '')}; true`,
+    );
+    await sleep(100);
+  }
+
   async function errors() {
     let bgErrors = [];
     try {
@@ -249,5 +290,5 @@ export async function startFirefox(o) {
     await rm(work, { recursive: true, force: true, maxRetries: 5, retryDelay: 500 }).catch(() => {});
   }
 
-  return { browser, addon, uuid, base, downloads, open, navigate, waitFor, helperPage, bg, findPage, errors, close };
+  return { browser, addon, uuid, base, downloads, open, navigate, waitFor, helperPage, bg, findPage, errors, close, chromeEval, setPref, setColorScheme, setMedium };
 }

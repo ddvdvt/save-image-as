@@ -29,13 +29,13 @@ const DROP_PERMISSIONS = ['offscreen'];
 // clipboard.setImageData (Firefox-only API) puts the PNG on the clipboard from the background page;
 // it needs clipboardWrite (no install-time warning in Firefox).
 const ADD_PERMISSIONS = ['clipboardWrite'];
-/** Files that only the Chrome build uses (the offscreen document; Firefox converts in the event page). */
 /**
  * Extension-page CSP. Firefox's MV3 default adds upgrade-insecure-requests, which turns the
  * background's fetch of an http:// image into https:// (and fails on http-only hosts); Chrome's
  * default has no such directive. Same script policy as the default, without the upgrade.
  */
 const CSP = { extension_pages: "script-src 'self'" };
+/** Files that only the Chrome build uses (the offscreen document; Firefox converts in the event page). */
 const EXCLUDE = ['src/offscreen/offscreen.html', 'src/offscreen/offscreen.js'];
 
 // ---------- transform ----------
