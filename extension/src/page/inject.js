@@ -113,7 +113,7 @@ export function showToastInPage(o) {
     const host = document.createElement('div');
     host.id = ID;
     host.style.cssText = 'all:initial;position:fixed;z-index:2147483647;right:16px;bottom:16px;';
-    const root = host.attachShadow({ mode: 'closed' });
+    const root = host.attachShadow({ mode: 'open' });
     const style = document.createElement('style');
     style.textContent = `
       .t{all:initial;box-sizing:border-box;display:flex;gap:10px;align-items:flex-start;max-width:min(420px,calc(100vw - 32px));

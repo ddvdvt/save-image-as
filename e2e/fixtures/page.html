@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Тестовая галерея</title>
+  <style>body{font:14px system-ui;margin:20px} img{border:1px solid #ccc;margin:4px;max-width:200px;vertical-align:top}</style>
+</head>
+<body>
+  <h1>Тестовая галерея</h1>
+  <img id="webp" src="/img/lake.webp" alt="Фото">
+  <img id="png" src="/img/logo.png" alt="Логотип">
+  <img id="gif" src="/img/anim.gif" alt="Анимация">
+  <img id="svg" src="/img/icon.svg" alt="Значок">
+  <img id="cors" src="http://cors.test/img/c.webp" crossorigin="anonymous" alt="CORS">
+  <img id="granted" src="http://granted.test/img/g.webp" alt="granted">
+  <img id="cdn" src="http://cdn.test/img/cdn-photo.webp" alt="cdn">
+  <img id="data" alt="Схема" src="{{DATA_PNG}}">
+  <img id="blob" alt="">
+  <script>
+    // a blob: URL image, like editors and galleries create
+    const c = document.createElement('canvas');
+    c.width = 50; c.height = 30;
+    const x = c.getContext('2d');
+    x.fillStyle = '#0e7c66'; x.fillRect(0, 0, 50, 30);
+    c.toBlob((b) => { document.getElementById('blob').src = URL.createObjectURL(b); document.body.dataset.blob = '1'; }, 'image/png');
+  </script>
+</body>
+</html>
