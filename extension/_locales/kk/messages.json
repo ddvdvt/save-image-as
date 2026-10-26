@@ -12,7 +12,7 @@
     "message": "Суретті сақтау — баптаулар"
   },
   "menuParent": {
-    "message": "Суретті сақтау…"
+    "message": "PNG / JPG / WebP етіп сақтау"
   },
   "menuSaveAs": {
     "message": "$1 етіп сақтау"
@@ -105,7 +105,7 @@
     "message": "Суретті сақтау — баптаулар"
   },
   "optionsLead": {
-    "message": "Кез келген суретті оң жақпен басыңыз → «Суретті сақтау…» → PNG, JPG не WebP."
+    "message": "Кез келген суретті оң жақпен басыңыз → «PNG / JPG / WebP етіп сақтау» → қажетті пішім."
   },
   "sectionFormat": {
     "message": "Пішім"

@@ -14,7 +14,7 @@ const M = {
   ],
   actionTitle: ['Сохранить картинку как… — настройки', 'Save Picture As… — settings', 'Суретті сақтау — баптаулар'],
 
-  menuParent: ['Сохранить картинку как…', 'Save picture as…', 'Суретті сақтау…'],
+  menuParent: ['Сохранить как PNG / JPG / WebP', 'Save as PNG / JPG / WebP', 'PNG / JPG / WebP етіп сақтау'],
   menuSaveAs: ['Сохранить как $1', 'Save as $1', '$1 етіп сақтау'],
   menuCopyPng: ['Скопировать как PNG', 'Copy as PNG', 'PNG етіп көшіру'],
   menuOriginal: ['Сохранить оригинал (без конвертации)', 'Save the original (no conversion)', 'Түпнұсқаны сақтау (түрлендірусіз)'],
@@ -65,9 +65,9 @@ const M = {
 
   optionsTitle: ['Сохранить картинку как… — настройки', 'Save Picture As… — settings', 'Суретті сақтау — баптаулар'],
   optionsLead: [
-    'Щёлкните правой кнопкой по любой картинке → «Сохранить картинку как…» → PNG, JPG или WebP.',
-    'Right-click any image → "Save picture as…" → PNG, JPG or WebP.',
-    'Кез келген суретті оң жақпен басыңыз → «Суретті сақтау…» → PNG, JPG не WebP.',
+    'Щёлкните правой кнопкой по любой картинке → «Сохранить как PNG / JPG / WebP» → нужный формат.',
+    'Right-click any image → "Save as PNG / JPG / WebP" → pick the format.',
+    'Кез келген суретті оң жақпен басыңыз → «PNG / JPG / WebP етіп сақтау» → қажетті пішім.',
   ],
   sectionFormat: ['Формат', 'Format', 'Пішім'],
   defaultFormat: ['Формат по умолчанию (первый пункт меню)', 'Default format (first menu item)', 'Әдепкі пішім (мәзірдегі бірінші тармақ)'],

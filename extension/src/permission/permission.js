@@ -17,8 +17,11 @@ async function main() {
   const info = await chrome.runtime.sendMessage({ type: 'sia:host', jobId }).catch(() => null);
   if (!info || !info.ok) {
     $('lead').textContent = t('permExpired');
-    $('host').parentElement?.remove();
-    for (const id of ['allowHost', 'allowAll']) /** @type {HTMLButtonElement} */ ($(id)).disabled = true;
+    for (const el of document.querySelectorAll('.host, .details, #allowHost, #allowAll')) el.remove();
+    $('cancel').textContent = t('close');
+    $('cancel').addEventListener('click', () => window.close());
+    $('cancel').focus();
+    document.body.dataset.ready = 'expired';
     return;
   }
   $('lead').textContent = t('permLead');

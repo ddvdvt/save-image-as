@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 398 220">
+  <rect width="398" height="220" fill="#eef3e6"/>
+  <path d="M0 160 C60 120 110 190 170 150 S280 90 398 130 V220 H0Z" fill="#d6e4c4"/>
+  <ellipse cx="90" cy="70" rx="34" ry="18" fill="#8fb8de"/>
+  <ellipse cx="200" cy="110" rx="26" ry="14" fill="#8fb8de"/>
+  <ellipse cx="300" cy="60" rx="30" ry="16" fill="#8fb8de"/>
+  <ellipse cx="250" cy="170" rx="22" ry="12" fill="#8fb8de"/>
+  <ellipse cx="350" cy="150" rx="20" ry="11" fill="#8fb8de"/>
+  <path d="M40 190 L90 70 L200 110 L300 60 L250 170 L350 150" fill="none" stroke="#c2341a" stroke-width="4" stroke-dasharray="10 7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="40" cy="190" r="7" fill="#c2341a"/>
+  <text x="54" y="206" font-family="Segoe UI, sans-serif" font-size="14" fill="#333">старт</text>
+</svg>
