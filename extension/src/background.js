@@ -15,8 +15,16 @@ import { buildFilename } from '../lib/filename.js';
 import { FORMATS, LIMITS, visibleNotes } from '../lib/plan.js';
 import { originPattern, hostLabel, urlKind } from '../lib/origin.js';
 import { readImageInPage, copyPngInPage, showToastInPage } from './page/inject.js';
+import { convertSafe, revokeUrl } from './offscreen/convert.js';
 
 const OFFSCREEN = 'src/offscreen/offscreen.html';
+/**
+ * Chrome: the service worker has no DOM, so the canvas work runs in an offscreen document.
+ * Firefox: no chrome.offscreen, but the background is an event page with DOM — convert right here.
+ */
+const HAS_OFFSCREEN = typeof chrome.offscreen?.createDocument === 'function';
+/** Firefox-only API: put a PNG on the clipboard from the background (needs clipboardWrite). */
+const ffClipboard = typeof (/** @type {any} */ (globalThis).browser?.clipboard?.setImageData) === 'function' ? /** @type {any} */ (globalThis).browser.clipboard : null;
 const t = (/** @type {string} */ key, /** @type {string[]=} */ subs) => chrome.i18n.getMessage(key, subs) || key;
 
 /**
@@ -83,6 +91,7 @@ async function ensureOffscreen() {
 }
 
 async function closeOffscreenIfIdle() {
+  if (!HAS_OFFSCREEN) return;
   const { pending = {} } = await chrome.storage.session.get('pending');
   if (Object.keys(pending).length) return;
   try {
@@ -94,6 +103,7 @@ async function closeOffscreenIfIdle() {
 
 /** @param {object} request */
 async function convertInOffscreen(request) {
+  if (!HAS_OFFSCREEN) return convertSafe(request);
   await ensureOffscreen();
   const res = await chrome.runtime.sendMessage({ target: 'offscreen', type: 'convert', request });
   return res || { ok: false, error: 'decode' };
@@ -256,11 +266,23 @@ async function runJob(job, opts = {}) {
   if (copy) {
     await closeOffscreenIfIdle();
     let r = { ok: false, reason: 'error' };
-    try {
-      const [x] = await chrome.scripting.executeScript({ target: { tabId: job.tabId, frameIds: [job.frameId] }, func: copyPngInPage, args: [res.dataUrl] });
-      r = (x && x.result) || r;
-    } catch {
-      /* no access to the frame */
+    if (ffClipboard) {
+      // Firefox: straight from the background, works on http:// pages too
+      try {
+        const buf = await (await fetch(res.dataUrl)).arrayBuffer();
+        await ffClipboard.setImageData(buf, 'png');
+        r = { ok: true };
+      } catch {
+        /* fall back to the page */
+      }
+    }
+    if (!r.ok) {
+      try {
+        const [x] = await chrome.scripting.executeScript({ target: { tabId: job.tabId, frameIds: [job.frameId] }, func: copyPngInPage, args: [res.dataUrl] });
+        r = (x && x.result) || r;
+      } catch {
+        /* no access to the frame */
+      }
     }
     if (!r.ok) return notify(job, { kind: 'error', text: r.reason === 'insecure' ? t('errCopyInsecure') : t('errCopy') });
     return notify(job, { kind: animatedNote ? 'info' : 'ok', text: [t('copied', [`${res.width}×${res.height}`]), ...notes].join('\n') });
@@ -296,6 +318,7 @@ async function runJob(job, opts = {}) {
 
 /** @param {string} url */
 async function revoke(url) {
+  if (!HAS_OFFSCREEN) return void revokeUrl(url);
   try {
     await chrome.runtime.sendMessage({ target: 'offscreen', type: 'revoke', url });
   } catch {
