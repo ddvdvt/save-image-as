@@ -114,8 +114,7 @@ export function showToastInPage(o) {
     host.id = ID;
     host.style.cssText = 'all:initial;position:fixed;z-index:2147483647;right:16px;bottom:16px;';
     const root = host.attachShadow({ mode: 'open' });
-    const style = document.createElement('style');
-    style.textContent = `
+    const css = `
       .t{all:initial;box-sizing:border-box;display:flex;gap:10px;align-items:flex-start;max-width:min(420px,calc(100vw - 32px));
         padding:12px 12px 12px 14px;border-radius:10px;background:#fff;color:#1d2330;border:1px solid #d8dde6;border-left:4px solid #0e7c66;
         box-shadow:0 8px 28px rgba(0,0,0,.18);font:13px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;animation:in .16s ease-out}
@@ -161,7 +160,17 @@ export function showToastInPage(o) {
     x.setAttribute('aria-label', o.closeLabel);
     x.addEventListener('click', close);
     box.append(x);
-    root.append(style, box);
+    // a constructed stylesheet is not blocked by a strict page CSP (style-src without 'unsafe-inline')
+    try {
+      const sheet = new CSSStyleSheet();
+      sheet.replaceSync(css);
+      root.adoptedStyleSheets = [sheet];
+    } catch {
+      const style = document.createElement('style');
+      style.textContent = css;
+      root.append(style);
+    }
+    root.append(box);
     (document.body || document.documentElement).append(host);
     const ms = o.ms || 6000;
     const arm = () => {

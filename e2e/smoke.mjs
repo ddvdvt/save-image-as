@@ -59,7 +59,8 @@ const server = createServer(async (req, res) => {
     if (path === '/page.html') {
       const dataPng = 'data:image/png;base64,' + png(8, 8, (x, y) => ((x + y) % 2 ? [255, 255, 255, 255] : [40, 90, 220, 255])).toString('base64');
       const html = (await readFile(join(ROOT, 'e2e', 'fixtures', 'page.html'), 'utf8')).replace('{{DATA_PNG}}', dataPng);
-      res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' });
+      // a strict style policy, like many big sites: the notice must still be styled
+      res.writeHead(200, { 'content-type': 'text/html; charset=utf-8', 'content-security-policy': "style-src 'self'; object-src 'none'" });
       return res.end(html);
     }
     if (path.endsWith('.webp') && path.startsWith('/img/')) {
@@ -340,6 +341,8 @@ try {
   await step('image that fails to load (404) → clear error', async () => {
     await click('sia-save-png', `http://site.test/img/missing.png`, { expectDownload: false });
     assert.match(await toastText(), /404/);
+    const radius = await page.evaluate(() => getComputedStyle(document.getElementById('save-image-as-toast').shadowRoot.querySelector('.t')).borderRadius);
+    assert.equal(radius, '10px', 'notice styled despite the page CSP');
   });
 
   await step('URL that returns HTML instead of an image → clear error', async () => {
