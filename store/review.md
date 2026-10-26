@@ -1,7 +1,7 @@
 # Chrome Web Store — Privacy practices & review notes (Save Picture As)
 
 Copy each block into the matching field of the CWS developer dashboard.
-`BASE` = the brand site address from `extension/lib/brand.js` (currently the placeholder `https://USER.github.io/REPO/` — replace it before submitting).
+`BASE` = the brand site address from `extension/lib/brand.js` (currently `https://ddvdvt.github.io/`).
 
 ## Single purpose
 
@@ -46,7 +46,7 @@ Certifications (all three checked):
 
 ## Privacy policy URL
 
-`BASE` + `privacy/save-image-as.html` → currently `https://USER.github.io/REPO/privacy/save-image-as.html`
+`BASE` + `privacy/save-image-as.html` → `https://ddvdvt.github.io/privacy/save-image-as.html`
 
 ## Notes for the reviewer (test instructions)
 
